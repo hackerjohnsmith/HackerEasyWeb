@@ -1,0 +1,15 @@
+{
+  "name": "HackerEasyWeb",
+  "version": "1.0.0",
+  "description": "An Easy Web System for Beginners",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "xlsx": "^0.18.5"
+  },
+  "author": "",
+  "license": "ISC"
+}

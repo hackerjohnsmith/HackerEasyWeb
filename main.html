@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>欢迎页面</title>
+</head>
+<body>
+  <h1 id="welcomeMessage"></h1>
+  <p><a href="/">返回首页</a></p>
+  
+  <script>
+    // 从URL中获取用户名参数
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+    
+    // 显示欢迎信息
+    if (username) {
+      document.getElementById('welcomeMessage').textContent = `您好，欢迎回来，${username}！`;
+    } else {
+      document.getElementById('welcomeMessage').textContent = '不对?!!! 您是哪位?没听说过啊!';
+    }
+  </script>
+</body>
+</html>
