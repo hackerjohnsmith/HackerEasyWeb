@@ -10,12 +10,12 @@ HackerEasyWeb 是一个 **面向初学者的简易 Web 系统**，由开发者 H
 - **入门友好设计**：针对 Web 初学者优化，代码注释清晰，逻辑简单易懂，避免抽象概念与复杂依赖。
 - **零门槛部署**：提供服务端管理面板 (Windows 平台) ,无需手动配置环境，双击即可完成安装与启动服务端。
 - **Excel 轻量数据库**：使用 Excel 文件作为数据存储介质，无需学习 MySQL 等专业数据库，降低数据操作门槛，实现用Excel就能直接修改数据库数据。
-- **完整基础功能**：包含用户注册、登录、会话管理等核心 Web 功能，可直接作为学习案例或二次开发基础。
+- **完整服务功能**：包含默认HTTPS服务、用户注册、登录、会话管理等核心 Web 功能，可直接作为学习案例或二次开发基础。
 - **开源可扩展**：全部代码开源，结构模块化，可直接替换模块内容，便于初学者在此基础上添加新功能，实践开发技能。
 
 
 ## 三、技术基础
-- **核心框架**：基于 **Express 4.18.2** 开发，采用 Node.js 作为运行环境，简化 Web 服务器搭建流程。
+- **核心框架**：基于 **Express 5.1.0** 开发，采用 Node.js 作为运行环境，简化 Web 服务器搭建流程。
 - **数据处理**：使用 **xlsx 0.18.5** 库实现 Excel 文件的读写操作，替代传统数据库作为数据存储方案。
 - **部署工具**：通过 **管理面板** 自动化环境配置与服务管理，降低操作复杂度。
 
@@ -23,20 +23,19 @@ HackerEasyWeb 是一个 **面向初学者的简易 Web 系统**，由开发者 H
 ## 四、最低环境需求
 为保证服务端正常运行，建议满足以下环境配置：
 - **操作系统**：Windows 10 及以上版本（64 位系统）
-- **Node.js**：至少 v22.19.0 及以上（管理面板会自动下载并安装适配版本）
-- **内存（RAM）**：至少 1GB 可用内存（物理内存至少2GB内存以上）
-- **硬盘（ROM）**：至少 120MB 可用空间（含 Node.js 环境和数据库文件）
+- **Node.js**：推荐 v22.19.0 及以上（管理面板会自动下载并安装适配版本）
+- **硬盘**：至少 130MB 可用空间（含 Node.js 环境和数据库文件）
 
 
 ## 五、项目部署与启动
 ### 自动部署（推荐初学者）
-1. [点击链接](https://github.com/hackerjohnsmith/HackerEasyWeb/releases/download/v1.0.0/HackerEasyWeb.zip) 下载最新版本软件
+1. [点击链接](https://github.com/hackerjohnsmith/HackerEasyWeb/releases/download/v1.1.0/HackerEasyWeb.zip) 下载最新版本软件
 2. 解压Zip压缩文件，并将压缩文件下所有内容放在一个单独的空白文件夹下
 3. 双击运行 `HackerEasyWeb.exe` 控制面板软件
 4. 在弹出的菜单中选择：
    - `2) 安装服务器`：自动下载 Node.js 环境并完成依赖安装
    - `1) 启动服务器`：安装完成后启动 Web 服务
-   - 服务启动后，访问 [`http://localhost`](http://localhost) 即可访问Web服务
+   - 服务启动后，访问 [`https://localhost`](https://localhost) 即可访问Web服务
 5. *注意:您应该选择下载Github Releases下的完整文件而非代码文件或者克隆仓库
 
 ### 手动部署（推荐有基础的老手）
@@ -44,30 +43,28 @@ HackerEasyWeb 是一个 **面向初学者的简易 Web 系统**，由开发者 H
 # 克隆项目仓库
 git clone https://github.com/HackerJohnSmith/HackerEasyWeb.git
 
-# 进入项目目录
-cd HackerEasyWeb
+# 项目依赖安装
+cd HackerEasyWeb && npm install
 
-# 安装依赖包
-npm install
-
-# 启动服务器
-npm start
+# OpenSSL生成证书
+mkdir cert
+openssl req -x509 -nodes -days 36500 -newkey rsa:2048 -keyout private.pem -out certificate.pem -subj "/C=CN/ST=YourState/L=YourCity/O=YourCompany/OU=YourDepartment/CN=localhost"
 ```
-*注意:您在手动部署前需要手动安装最新版本的node.js且您将无法正常使用HackerEasyWeb控制面板
+*注意:您在手动部署前需要手动安装最新版本的Node.js,opensssl且您将无法正常使用HackerEasyWeb控制面板
 
 
 ## 六、核心配置参数
 | 参数类型        | 参数名          | 配置位置       | 作用说明                     |
 |-----------------|-----------------|----------------|------------------------------|
-| 服务器端口      | `port`          | main.js 第6行  | 默认为 80 端口，可修改为其他端口（如 8080） |
-| 静态文件目录    | `express.static`| main.js 第10行 | 默认为当前目录，用于存放 HTML 等静态文件    |
-| 数据库文件名    | `dbFile`        | main.js 第16行 | 默认为 database.xlsx，存储用户数据         |
-| 默认用户名密码  | `Hacker`        | main.js 第27行 | 默认为Hacker/Hacker                       |
+| 服务器端口      | `port`          | main.js 第9,10行  | 默认为 80,443 端口 , 根据需求修改|
+| 静态文件目录    | `express.static`| main.js 第17行 | 默认为当前目录，用于存放 HTML 等静态文件    |
+| 数据库文件名    | `dbFile`        | main.js 第20行 | 默认为 database.xlsx，存储用户数据         |
+| 默认用户名密码  | `Hacker`        | main.js 第28行 | 默认为Hacker/Hacker                       |
 
 
 ## 七、使用指南
 1. **基础功能使用**：
-   - 访问首页 [`http://localhost`](http://localhost) 可导航至登录/注册页面
+   - 访问首页 [`https://localhost`](https://localhost) 可导航至登录/注册页面
    - 注册新用户后，使用账号密码登录系统
    - 登录成功后进入欢迎页面，可返回首页继续操作
 
@@ -96,13 +93,16 @@ AGPL v3 协议官方文本：[https://www.gnu.org/licenses/agpl-3.0.html](https:
 
 ## 九、版本更新日志
 ### v1.0.0（2025-10-02）
-- **大版本更新**：首次创建HackerEasyWeb项目，完成基础框架搭建（含管理面板和基础功能配置）
+- **版本更新**：首次创建HackerEasyWeb项目，完成基础框架搭建（含管理面板和基础功能配置）
+
+### v1.1.0（2025-10-12）
+- **功能更新**：首次创建HackerEasyWeb项目，完成基础框架搭建（含管理面板和基础功能配置）
 
 ## 十、后续规划
 未来将围绕「提升初学者学习体验」持续迭代，重点方向包括：
 - 修改细微问题和BUG，提升用户体验
 - 完善控制面板功能(包括但不限于卸载功能,手动部署项目支持管理面板)
-- IPV6技术,HTTPS技术引入和优化
+- IPV6技术,HTTPS技术优化
 - 优化代码可读性和易于维护性
 - 提供更多安全类保障
 
